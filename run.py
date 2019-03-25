@@ -93,8 +93,8 @@ class SimpleAPI(BaseHTTPRequestHandler):
         self.send_header('Content-Length', content_length)
         self.end_headers()
         self.flush_headers()
-        if body:
-            self.wfile.write(bytes(body, 'UTF-8'))
+        if body_bytes:
+            self.wfile.write(body_bytes)
 
 if __name__ == '__main__':
     httpd = HTTPServer((HOST_NAME, PORT_NUMBER), SimpleAPI)

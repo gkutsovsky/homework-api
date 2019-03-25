@@ -15,8 +15,6 @@ $ cd homework-api
 $ ./run.py
 ```
 
-When you're finished with the project, you can just delete the entire virtual environment directory to clean up your system.
-
 ## Requirements:
 
 Please use Python3 (3.6+).
@@ -27,10 +25,9 @@ Create an HTTP client application that can execute the following HTTP requests s
 2. `GET http://localhost:5000/api/secret2`
 3. `GET http://localhost:5000/api/secret3`
 
-In order to execute any of the requests, you'll first need the client to login to the server by executing a `POST` request to the following endpoint:
-`http://localhost:5000/api/login`
+You'll first need to login to the server by executing a `POST` request to the authentication endpoint at `http://localhost:5000/api/login`.
 
-with the following payload:
+The authentication payload should be exactly this:
 ```
 {
   "username": "guest",
@@ -38,7 +35,14 @@ with the following payload:
 }
 ```
 
-An `access_token` will be returned as the body of the "login" request.  This `access_token` must be included in the standard `Authorization` header in the `GET` requests above.
+A successful login request will result in a response from the server with the following format:
+```
+{
+  "access_token": "89a35947-5360-4731-9b69-f8d683c4d778"
+}
+```
+
+The value of the `access_token` must be included in the standard `Authorization` header in the `GET` requests above.
 
 ```
 Authorization: Bearer <access_token_value>
@@ -56,4 +60,5 @@ Your solution is complete when you can issue all three `GET` requests above, and
 
 ## Solution:
 
-Please commit your solution to your github account and send an email to 'jason@secberus.com' with a link to the repository.  If this is a private repostitory, make sure 'subfxnet' is added as a contributor to the repository.
+Please commit your solution to an empty repository in your github account and send an email to 'jason@secberus.com' with a link to the repository.  If this is a private repostitory, make sure 'subfxnet' (jason@secberus.com's Github username) is added as a contributor to the repository.
+
