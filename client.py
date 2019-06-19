@@ -6,7 +6,7 @@ import json
 
 url = 'http://localhost:5000/api/login'
 
-urls = login_url, *secrets = (urllib.parse.urlunsplit(('http', 'localhost:5000', f'api/{item}', '', ''))
+urls = login_url, *secret_urls = (urllib.parse.urlunsplit(('http', 'localhost:5000', f'api/{item}', '', ''))
                               for item in ('login', *(f'secret{i}' for i in range(1, 4))))
 
 
@@ -33,12 +33,13 @@ async def main():
   async with aiohttp.ClientSession() as session:
       headers = await get_headers(session)
       # need headers Authorization: Bearer <access_token_value>
-      for session, url in ((session, url) for url in secrets):
-            status, response = await get(session, url, headers)
-            if status == 401:
-              headers = await get_headers(session)
-              status, response = await get(session, url, headers)
-            print(status, response)
+      status = None
+      for session, url in ((session, url) for url in secret_urls):
+        if status == 401:
+            headers = await get_headers(session)
+        status, response = await get(session, url, headers)
+            
+        print(status, response)
             
   
 
